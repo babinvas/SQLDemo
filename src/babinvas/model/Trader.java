@@ -18,7 +18,7 @@ public class Trader extends BaseModel {
 	// The name of the trader
 	// (Имя трейдера)
 	private String name;
-	// Frequency per day
+	// The frequency per day
 	// (Частота в день)
 	private int freqPerDay;
 	// The amount
