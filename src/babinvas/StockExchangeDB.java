@@ -1,5 +1,11 @@
 package babinvas;
 
+import babinvas.repository.ShareRates;
+import babinvas.repository.Shares;
+import babinvas.repository.TraderShareActions;
+import babinvas.repository.Traders;
+import org.h2.tools.DeleteDbFiles;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -7,8 +13,51 @@ import java.sql.SQLException;
 public class StockExchangeDB {
     // Constant declaration block
     // (Блок объявления констант)
-    public static final String DB_URL = "jdbc:h2:/G:/Java Projects/SQLDemo/db/stockExchange";
+    public static final String DB_DIR = "G:/Java Projects/SQLDemo/db";
+    public static final String DB_FILE = "stockExchange";
+    public static final String DB_URL = "jdbc:h2:/" + DB_DIR + "/" + DB_FILE;
     public static final String DB_DRIVER = "org.h2.Driver";
+
+    //
+    // (Таблицы СУБД)
+    Traders traders;
+    ShareRates shareRates;
+    Shares shares;
+    TraderShareActions traderShareActions;
+
+    //
+    // (Получет новое соединение с БД)
+    public static Connection getConnection() throws SQLException {
+        return DriverManager.getConnection(DB_URL);
+    }
+
+    //
+    // (Инициализация по умолчанию, без удаления файла БД)
+    public StockExchangeDB() throws SQLException, ClassNotFoundException {
+        this(false);
+    }
+
+    //
+    // (Инициализация)
+    public StockExchangeDB(boolean renew) throws SQLException, ClassNotFoundException {
+        if(renew) {
+            DeleteDbFiles.execute(DB_DIR, DB_FILE, false);
+        }
+
+        Class.forName(DB_DRIVER);
+
+        //
+        // (Инициализируем таблицы)
+        traders = new Traders();
+        shares = new Shares();
+        shareRates = new ShareRates();
+        traderShareActions = new TraderShareActions();
+    }
+
+    //
+    // (Создание всех таблиц и внешних ключей)
+    public void createTablesAndForeignKeys() throws SQLException {
+    }
 
     public static void main(String[] args) {
         try {
