@@ -14,7 +14,7 @@ public class TraderShareActions extends BaseTable implements TableOperations {
 						"operation INTEGER NOT NULL," +
 						"trader INTEGER NOT NULL," +
 						"share_rate INTEGER NOT NULL," +
-						"amount BIGINT NOT NULL",
+						"amount BIGINT NOT NULL)",
 				"Создана таблица " + tableName);
 	}
 

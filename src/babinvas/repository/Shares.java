@@ -9,7 +9,7 @@ public class Shares extends BaseTable implements TableOperations {
 
 	@Override
 	public void createTable() throws SQLException {
-		super.executeSqlStatement("CREATE TABLE shares(" +
+		super.executeSqlStatement("CREATE TABLE IF NOT EXISTS shares(" +
 				"id BIGINT AUTO_INCREMENT PRIMARY KEY," +
 				"name VARCHAR(255) NOT NULL," +
 				"startPrice DECIMAL(15, 2) NOT NULL DEFAULT 10," +

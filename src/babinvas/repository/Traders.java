@@ -10,7 +10,7 @@ public class Traders extends BaseTable implements TableOperations {
 	@Override
 	public void createTable() throws SQLException {
 		super.executeSqlStatement("CREATE TABLE IF NOT EXISTS traders(" +
-						"id BIGINT AUTO_INCREASE PRIMARY KEY," +
+						"id BIGINT AUTO_INCREMENT PRIMARY KEY," +
 						"name VARCHAR(255) NOT NULL," +
 						"freqPerDay INTEGER NOT NULL," +
 						"cash DECIMAL(15,2) NOT NULL," +

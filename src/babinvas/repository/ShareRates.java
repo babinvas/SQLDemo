@@ -9,11 +9,11 @@ public class ShareRates extends BaseTable implements TableOperations {
 
 	@Override
 	public void createTable() throws SQLException {
-		super.executeSqlStatement("CREATE TABLE IF NOT EXISTS share_rate(" +
+		super.executeSqlStatement("CREATE TABLE IF NOT EXISTS share_rates(" +
 				"id BIGINT AUTO_INCREMENT PRIMARY KEY," +
 				"operDate DATETIME NOT NULL," +
 				"share BIGINT NOT NULL," +
-				"rate DECIMAL(15,2) NOT NULL",
+				"rate DECIMAL(15,2) NOT NULL)",
 				"Создана таблица" + tableName);
 	}
 
