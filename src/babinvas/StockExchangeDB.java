@@ -18,7 +18,7 @@ public class StockExchangeDB {
     public static final String DB_URL = "jdbc:h2:/" + DB_DIR + "/" + DB_FILE;
     public static final String DB_DRIVER = "org.h2.Driver";
 
-    //
+    // DBMS tables
     // (Таблицы СУБД)
     Traders traders;
     ShareRates shareRates;
@@ -31,14 +31,12 @@ public class StockExchangeDB {
         return DriverManager.getConnection(DB_URL);
     }
 
-    //
-    // (Инициализация по умолчанию, без удаления файла БД)
+    // Initializes by default, without deleting the database file
+    // (Инициализирует по умолчанию, без удаления файла БД)
     public StockExchangeDB() throws SQLException, ClassNotFoundException {
         this(false);
     }
 
-    //
-    // (Инициализация)
     public StockExchangeDB(boolean renew) throws SQLException, ClassNotFoundException {
         if(renew) {
             DeleteDbFiles.execute(DB_DIR, DB_FILE, false);
@@ -48,29 +46,23 @@ public class StockExchangeDB {
         // (Проверяем наличие JDBC драйвера для работы с БД)
         Class.forName(DB_DRIVER);
 
-        //
-        // (Инициализируем таблицы)
         traders = new Traders();
         shares = new Shares();
         shareRates = new ShareRates();
         traderShareActions = new TraderShareActions();
     }
 
-    //
-    // (Создаёт все таблиц и внешние ключи)
+    // Creates all tables, constraints and foreign keys
+    // (Создаёт все таблиц, ограничения и внешние ключи)
     public void createTablesAndForeignKeys() throws SQLException {
         shares.createTable();
         shareRates.createTable();
         traders.createTable();
         traderShareActions.createTable();
 
-        //
-        // (Созданаёт ограничения на поля таблиц)
         traderShareActions.createExtraConstraints();
         shares.createExtraConstraints();
 
-        //
-        // (Создаёт внешние ключи (связи между таблицами)
         shareRates.createForeignKeys();
         traderShareActions.createForeignKeys();
     }
